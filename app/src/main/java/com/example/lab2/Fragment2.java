@@ -22,6 +22,7 @@ public class Fragment2 extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     ImageView imageViewAdd;
+    ImageView imageViewList;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,6 +65,7 @@ public class Fragment2 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_2, container, false);
         imageViewAdd = view.findViewById(R.id.imageView);
+        imageViewList = view.findViewById(R.id.imageView4);
         imageViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +73,14 @@ public class Fragment2 extends Fragment {
                 startActivity(intent);
             }
         });
+        imageViewList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 }

@@ -2,6 +2,15 @@
     <string name="app_name">Timer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Add">Добавить</string>
-    <string name="Color">Цвет</string>
+    <string name="Add">Add</string>
+    <string name="Color">Color</string>
+    <string name="popup1">Edit</string>
+    <string name="popup2">Delete</string>
+    <string name="Title">Title</string>
+    <string name="Ready">Preparation</string>
+    <string name="Work">Working</string>
+    <string name="Relax">Relax</string>
+    <string name="Cycles">Cycles</string>
+    <string name="Sets">Sets</string>
+    <string name="SetsRelax">Rest between sets</string>
 </resources>
