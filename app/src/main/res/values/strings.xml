@@ -2,4 +2,6 @@
     <string name="app_name">Timer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Add">Добавить</string>
+    <string name="Color">Цвет</string>
 </resources>
