@@ -13,9 +13,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
-public class TimerAdapter extends BaseAdapter {
+public class ListAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater;
     List<Timer> timers;
@@ -23,7 +22,7 @@ public class TimerAdapter extends BaseAdapter {
     DbAdapter dbAdapter;
     LinearLayout linearLayout;
 
-    TimerAdapter(Context context, List<Timer> timers) {
+    ListAdapter(Context context, List<Timer> timers) {
         this.context = context;
         this.timers = timers;
         layoutInflater = (LayoutInflater) context
@@ -56,6 +55,14 @@ public class TimerAdapter extends BaseAdapter {
         imageViewSettings = view.findViewById(R.id.imageViewSettings);
         linearLayout = view.findViewById(R.id.linearLayout1);
         linearLayout.setBackgroundColor(timer.getTimerColor());
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TimerActivity.class);
+                intent.putExtra("id", timer.getId());
+                context.startActivity(intent);
+            }
+        });
         imageViewSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,13 +87,11 @@ public class TimerAdapter extends BaseAdapter {
                                 return false;
 
                         }
-
                     }
                 });
             }
         });
         ((TextView) view.findViewById(R.id.textView)).setText(timer.getTitle());
-
         return view;
     }
 
