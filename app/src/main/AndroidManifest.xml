@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimerActivity"></activity>
+        <service
+            android:name=".TimerService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".TimerActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ListActivity" />
         <activity android:name=".AddActivity" />
         <activity
