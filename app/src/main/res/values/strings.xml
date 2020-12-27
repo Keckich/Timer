@@ -14,4 +14,15 @@
     <string name="Sets">Sets</string>
     <string name="SetsRelax">Rest between sets</string>
     <string name="Finish">Finish</string>
+    <string name="ClearData">Clear data</string>
+    <string name="Font">Font size</string>
+    <string name="Theme">Theme (light/dark)</string>
+    <string name="Design">Design</string>
+    <string name="Delete">Deleting</string>
+    <string name="MsgTitle">Leaving</string>
+    <string name="Msg">Do you really want to finish training?</string>
+    <string name="MsgBtnPos">Yes</string>
+    <string name="MsgBtnNeg">No</string>
+    <string name="Settings">Settings</string>
+
 </resources>

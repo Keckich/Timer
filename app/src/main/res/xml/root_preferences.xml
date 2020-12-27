@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:textColor="#000000"
+        app:title="@string/Design">
+        <EditTextPreference
+            android:defaultValue="false"
+            android:key="font_preference"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/Font" />
+        <SwitchPreferenceCompat
+            app:key="theme_preference"
+            app:title="@string/Theme" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/Delete">
+
+        <Preference
+            android:key="btn_preference_1"
+            android:title="@string/ClearData"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -97,6 +97,10 @@ public class DbAdapter {
         return database.delete(DbHelper.TABLE, whereClause, whereArgs);
     }
 
+    public void deleteAll() {
+        dbHelper.onUpgrade(database, 0, 0);
+    }
+
     public long update(Timer Timer){
 
         String whereClause = DbHelper.COLUMN_ID + "=" + String.valueOf(Timer.getId());

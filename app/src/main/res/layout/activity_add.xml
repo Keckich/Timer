@@ -11,13 +11,25 @@
         android:layout_height="wrap_content"
         android:minHeight="700dp">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorPrimary"
+
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/edit7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="8dp"
             android:ems="10"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toTopOf="@+id/button_add"
@@ -82,10 +94,11 @@
             android:id="@+id/edit1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="92dp"
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="@+id/edit2"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/edit2"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="26dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="4dp"
             android:onClick="addTimer"
             android:text="@string/Add"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -198,13 +211,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="5dp"
             android:text="@string/SetsRelax"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/edit6"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/edit6"
             app:layout_constraintTop_toBottomOf="@+id/edit6" />
     </androidx.constraintlayout.widget.ConstraintLayout>

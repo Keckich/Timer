@@ -1,8 +1,12 @@
 package com.example.lab2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.MediaPlayer;
@@ -10,6 +14,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,7 +33,7 @@ import java.util.Map;
 
 public class TimerActivity extends AppCompatActivity {
     private boolean running, is_service_active;
-    private long start_time, time_left, full_time;
+    private long  time_left;
     private int index;
     ArrayList<Integer> time_list;
     ArrayList<String> task_list;
@@ -47,7 +53,8 @@ public class TimerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mediaPlayer = MediaPlayer.create(this, R.raw.finish);
 
         is_service_active = false;
@@ -87,20 +94,16 @@ public class TimerActivity extends AppCompatActivity {
         task_list = new ArrayList<String>();
         time_list = new ArrayList<Integer>();
         task_list.add(this.getString(R.string.Ready) + ": " + timer.getReady());
-        start_time = timer.getReady() * 1000;
-        time_left = start_time;
-        time_list.add((int)start_time);
-        full_time = start_time;
+        time_left = timer.getReady() * 1000;
+        time_list.add((int)time_left);
         for (int j = 0; j < timer.getSets(); j++) {
             for (int i = 0; i < timer.getCycles(); i++) {
-                full_time += timer.getWork() * 1000 + timer.getRelax() * 1000;
                 task_list.add(this.getString(R.string.Work) + ": " + timer.getWork());
                 time_list.add(timer.getWork() * 1000);
                 task_list.add(this.getString(R.string.Relax) + ": " + timer.getRelax());
                 time_list.add(timer.getRelax() * 1000);
             }
             if (timer.getSets() > 1) {
-                full_time += timer.getRelax_sets() * 1000;
                 task_list.add(this.getString(R.string.SetsRelax) + ": " + timer.getRelax_sets());
                 time_list.add(timer.getRelax_sets() * 1000);
             }
@@ -111,8 +114,6 @@ public class TimerActivity extends AppCompatActivity {
         listViewTimer.setAdapter(adapter);
         dbAdapter.close();
 
-        //textViewTask.setText(task_list.get(index));
-        //startTimer();
         mediaPlayer.start();
 
         imageViewPause.setOnClickListener(new View.OnClickListener() {
@@ -200,22 +201,26 @@ public class TimerActivity extends AppCompatActivity {
         if (is_service_active) {
             time_left = timerService.getTime_left();
             index = timerService.getIndex();
-            unbindService(sConn);
             stopService(serviceIntent);
+            unbindService(sConn);
+            is_service_active = false;
+
         }
         if (index < task_list.size()) {
             textViewTask.setText(task_list.get(index));
-            //time_left = time_list.get(index);
             startTimer();
         }
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(sConn);
-        stopService(serviceIntent);
+        Log.i("serviceactive", String.valueOf(is_service_active));
+        if (is_service_active) {
+            unbindService(sConn);
+            stopService(serviceIntent);
+        }
+
     }
 
     private void startTimer() {
@@ -237,15 +242,11 @@ public class TimerActivity extends AppCompatActivity {
             public void onFinish() {
                 running = false;
                 index++;
-
-                //Log.i("time", String.valueOf(time_list.size()));
                 if (index < time_list.size()) {
                     listViewTimer.setSelection(index);
                     textViewTask.setText(task_list.get(index));
-                    start_time = time_list.get(index);
-                    time_left = start_time;
+                    time_left = time_list.get(index);
                     mediaPlayer.start();
-                    //full_time -= start_time;
                     time_left--;
                     startTimer();
                 }
@@ -257,5 +258,42 @@ public class TimerActivity extends AppCompatActivity {
     private void pauseTimer() {
         countDownTimer.cancel();
         running = false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.setting) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setTitle(this.getString(R.string.MsgTitle))
+                .setMessage(this.getString(R.string.Msg))
+                .setPositiveButton(this.getString(R.string.MsgBtnPos), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        countDownTimer.cancel();
+                        finish();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(this.getString(R.string.MsgBtnNeg), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 }

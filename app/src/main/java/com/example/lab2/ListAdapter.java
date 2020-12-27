@@ -2,6 +2,7 @@ package com.example.lab2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
@@ -21,6 +27,7 @@ public class ListAdapter extends BaseAdapter {
     ImageView imageViewSettings;
     DbAdapter dbAdapter;
     LinearLayout linearLayout;
+
 
     ListAdapter(Context context, List<Timer> timers) {
         this.context = context;
@@ -53,6 +60,15 @@ public class ListAdapter extends BaseAdapter {
         }
         final Timer timer = getTimer(position);
         imageViewSettings = view.findViewById(R.id.imageViewSettings);
+        TextView textViewTimer = view.findViewById(R.id.textView);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            float font = Float.parseFloat(sharedPreferences.getString("font_preference", "21"));
+            textViewTimer.setTextSize(font);
+        } catch (Exception e) {
+            textViewTimer.setTextSize(21);
+        }
+
         linearLayout = view.findViewById(R.id.linearLayout1);
         linearLayout.setBackgroundColor(timer.getTimerColor());
         linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +107,7 @@ public class ListAdapter extends BaseAdapter {
                 });
             }
         });
-        ((TextView) view.findViewById(R.id.textView)).setText(timer.getTitle());
+        textViewTimer.setText(timer.getTitle());
         return view;
     }
 
